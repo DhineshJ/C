@@ -1,0 +1,113 @@
+printf() function definition. Definition will not be the perfect one but it will be giving us good amount information. It will be a basic version, minimal_printf() we will say. (Reference: The C programming Language by K & R)
+
+Lets know the printf in detail.
+
+The prototype of printf() is:
+
+int printf(char *format, arg1, arg2, ...);
+printf converts, formats, and prints its arguments on the standard output. It returns the number of characters printed.
+
+The format string contains two different types of things: 1. Ordinary characters, which are sent to the standard output stream 2. Conversion specifications or format specifiers, each of which causes conversion and printing of the corresponding argument to printf.
+
+E.g. printf("Hello"), printf("%d", 5) etc
+
+Each conversion specification begins with a % and ends with a conversion character.
+
+Here are the things to note: Between the % and the conversion character there may be few numbers, signs, periods etc. Lets see their usage. One more thing, they occur in following order:
+
+A minus sign, which specifies left adjustment of the converted argument.
+A number that specifies the minimum field width. If necessary it will be padded on the left (or right, if left adjustment is called for) to make up the field width.
+A period, which separates the field width from the precision.
+A number, the precision, that specifies the maximum number of characters to be printed from a string, or the number of digits after the decimal point of a floating-point.
+value, or the minimum number of digits for an integer.
+An h if the integer is to be printed as a short , or l (letter 'l' (small L)) if as a long . Note:A width or precision may be specified as , in which case the value is computed by converting the next argument (which must be an int). For example: printf("%.*s", 3, 6, "Hello");
+Here are some examples to understand what we have just seen:
+
+:%s:               :hello, world:
+
+:%10s:            :hello, world:
+
+:%.10s:          :hello, wor:
+
+:%-10s:          :hello, world:
+
+:%.15s:          :hello, world:
+
+:%-15s:          :hello, world    :
+
+:%15.10s:       :      hello, wor:
+
+:%-15.10s:      :hello, wor     :
+(*Understand there is some formatting problem. The answer is in between 2 ':'s. Ignore the space out-side it but consider if they are inside ':'s)
+
+Printf Conversions
+
+Ok, we have seen what the printf is, lets see how is it now.
+
+Did you see the '...' in the prototype declaration of printf()? It is known as 'ellipsis' and it indicates that the function can have variable number of arguments.
+
+Yes, you hear it right? Variable number of Arguments.
+
+Now, we will see implementation of our minimal_printf(), as said in the beginning and the concept of Variable number of arguments parallely.
+
+Since we are learning the functions with variable number of arguments, we will focus on argument processing. Our minimal_printf will process the format string and arguments but will call the real printf to do the format conversions.
+
+The proper declaration for printf is:
+
+int printf(char *fmt, ...)
+We will declare our minimal_printf as:
+
+void minimal_printf(char *fmt, ...)
+We will not return the character count that printf does.
+
+The standard header <stdarg.h> contains a set of macro definitions that define how to step through an argument list. The implementation of this header will vary from machine to machine, but the interface it presents is uniform.
+
+The type va_list is used to declare a variable that will refer to each argument in turn; in minimal_printf , this variable is called ap , for "argument pointer".
+
+The macro va_start initializes ap to point to the first unnamed argument. It must be called once before ap is used.
+
+There must be at least one named argument; the final named argument is used by va_start to get started.
+
+Each call of va_arg returns one argument and steps ap to the next; va_arg uses a type name to determine what type to return and how big a step to take.
+
+Finally, va_end does whatever cleanup is necessary. It must be called before the program returns.
+
+Here is the implemetation of our minimal_printf() which gives us idea about both the original printf() and variable number of argument function.
+
+#include <stdarg.h>
+
+void minimal_printf(char *fmt, ...)
+{
+   va_list ap; /* points to each unnamed arg in turn */
+   char *p, *sval;
+   int ival;
+   double dval;
+   va_start(ap, fmt); /* make ap point to 1st unnamed arg */
+   for (p = fmt; *p; p++) 
+   {
+      if (*p != '%') 
+      {
+         putchar(*p);
+         continue;
+      }
+      switch (*++p) 
+      {
+         case 'd':
+            ival = va_arg(ap, int);
+            printf("%d", ival);
+            break;
+        case 'f':
+            dval = va_arg(ap, double);
+            printf("%f", dval);
+            break;
+        case 's':
+            for (sval = va_arg(ap, char *); *sval; sval++)
+            putchar(*sval);
+            break;
+        default:
+            putchar(*p);
+            break;
+      }
+   }
+   va_end(ap); /* clean up when done */
+}
