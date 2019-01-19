@@ -1,0 +1,49 @@
+#include<stdio.h>
+
+int main()
+{
+    static int arr[] = {0, 1, 2, 3, 4};
+    int *p[] = {arr, arr+1, arr+2, arr+3, arr+4};
+    int **ptr=p;
+    ptr++;
+    printf("%d, %d, %d\n", ptr-p, *ptr-arr, **ptr);
+    *ptr++;
+    printf("%d, %d, %d\n", ptr-p, *ptr-arr, **ptr);
+    *++ptr;
+    printf("%d, %d, %d\n", ptr-p, *ptr-arr, **ptr);
+    ++*ptr;
+    printf("%d, %d, %d\n", ptr-p, *ptr-arr, **ptr);
+    return 0;
+}
+
+i am trying to make this simpler.
+
+Here p[] is a pointer array to arr[]
+and ptr is pointer variable to p[].
+
+1.ptr++;
+
+Initially ptr is at 0 position referring to *p[0], now ptr is incremented and is at 1st position *p[1].
+
+Initially p is at 0
+
+so ptr -p= 1-0 =0
+*ptr is the value present in *p[1] i.e, arr+1 hence *ptr-arr=1
+**ptr is the value present in arr at position 1 i.e 1
+2. *ptr++
+the same thing happens here. ptr is again incremented by 1. now it points to *p[2].
+ptr-p=2-0=0 
+*ptr is value present in *p[2] i.e, arr+2 and *ptr-arr=2
+**ptr is value present in arr at position 2 i.e 2.
+3. *++Ptr
+this is same as 2. ptr is incremented and it points to *p[3]
+so the remaining is same
+4. ++*ptr 
+in case 2 and 3 pointer is incremented but here the value that the ptr pointing is incremented 
+
+ptr is pointing to arr+3 in *p[] and arr+3 is incremented
+so *p[3]= arr+4;
+
+ptr-p= 3-0=3
+*ptr-arr = arr+4-arr=4
+**ptr refers to the value in arr+4 i.e arr[4]=4
