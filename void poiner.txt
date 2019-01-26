@@ -1,0 +1,31 @@
+#include <stdio.h> 
+int main() 
+{ 
+    int iVal; 
+    char cVal; 
+    // void pointer 
+    void* ptr; 
+    iVal = 50; 
+    cVal = 65; 
+  
+    ptr = &iVal; 
+    printf("value =%d, size= %d\n", *(int*)ptr, sizeof(ptr)); 
+  
+    ptr = &cVal; 
+    printf("value =%d, size= %d\n", *(char*)ptr, sizeof(ptr)); 
+    return 0; 
+} 
+OPTION
+a) Error
+b) value =50, size= 4
+value =65, size= 4
+c) value =50, size= 4
+value =65, size= 1
+d)Garbage Values
+
+
+
+ 
+
+Answer: b
+Explanation : void pointer can be type casted to any type of data type, and pointer takes 4 bytes (On 32 bit compiler). To print value using void pointer, you will have to write like this *(data_type*)void_ptr;.

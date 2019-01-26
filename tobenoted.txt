@@ -1,0 +1,17 @@
+#include <stdio.h> 
+int main() 
+{ 
+    int c = 4; 
+    c = c++ + ~++c; 
+    printf("%d", c); 
+    return (0); 
+} 
+Options:
+1. 3
+2. -3
+3. 31
+4. compile time error
+
+ The answer is option(2).
+Explanation:Because here c++ is post increment and so it takes value as 4 then it will increment. ++c is pre-increment so it increment first and value 6 is assigned to c, .~ means -6-1=-7 then c=(4-7)=-3.
+https://www.geeksforgeeks.org/output-of-c-program-set-25/

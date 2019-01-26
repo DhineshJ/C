@@ -23,4 +23,28 @@ printf(“%c”, ‘h’ – ‘j’ + ‘n’ + 2)
 
 ‘h’ – ‘j’ + ‘\n’ + 2 = -2 + ‘\n’ + 2 = ‘\n’
 
+
+
+#include<stdio.h> 
+
+int main() 
+{ 
+	int x = 20, *y, *z; 
+	
+	// Assume address of x is 500 and 
+	// integer is 4 byte size 
+	y = &x; 
+	z = y; 
+	*y++; 
+	*z++; 
+	x++; 
+	printf("x = %d, y = %u, z = %d \n", x, y, z); 
+	return 0; 
+} 
+Output:
+
+x=21 y=504 z=504
+Description:
+In the beginning, the address of x is assigned to y and then y to z, it makes y and z similar. when the pointer variables are incremented there value is added with the size of the variable, in this case, y and z are incremented by 4.
+
 First print statements newline character. and next print statement prints “heejs\nforgeeks”.
