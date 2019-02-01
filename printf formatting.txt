@@ -1,3 +1,4 @@
+
 printf() function definition. Definition will not be the perfect one but it will be giving us good amount information. It will be a basic version, minimal_printf() we will say. (Reference: The C programming Language by K & R)
 
 Lets know the printf in detail.
